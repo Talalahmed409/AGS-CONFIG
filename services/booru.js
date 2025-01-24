@@ -14,7 +14,7 @@ const APISERVICES = {
 
 const getWorkingImageSauce = (url) => {
     if (url.includes('pximg.net')) {
-        return `https://www.pixiv.net/en/artworks/${url.substring(url.lastIndexOf('/') + 1).replace(/_p\d+\.(png|jpg|jpeg|gif)$/, '')}`;
+        return `https://www.pixiv.net/en/artworks/${url.substring(url.lastIndexOf('/')).replace(/_p\d+\.png$/, '')}`;
     }
     return url;
 }
@@ -129,8 +129,6 @@ class BooruService extends Service {
                         aspect_ratio: obj.width / obj.height,
                         id: obj.id,
                         tags: obj.tags,
-                        rating: obj.rating,
-                        is_nsfw: (obj.rating != 's'),
                         md5: obj.md5,
                         preview_url: obj.preview_url,
                         preview_width: obj.preview_width,

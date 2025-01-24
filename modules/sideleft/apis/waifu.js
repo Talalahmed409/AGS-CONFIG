@@ -71,12 +71,12 @@ const WaifuInfo = () => {
                         className: 'txt-smallie txt-subtext',
                         wrap: true,
                         justify: Gtk.Justification.CENTER,
-                        label: getString('Powered by waifu.im + other APIs'),
+                        label: 'Powered by waifu.im + other APIs',
                     }),
                     Button({
                         className: 'txt-subtext txt-norm icon-material',
                         label: 'info',
-                        tooltipText: getString('Type tags for a random pic.\nNSFW content will not be returned unless\nyou explicitly request such a tag.\n\nDisclaimer: Not affiliated with the providers\nnor responsible for any of their content.'),
+                        tooltipText: 'Type tags for a random pic.\nNSFW content will not be returned unless\nyou explicitly request such a tag.\n\nDisclaimer: Not affiliated with the providers\nnor responsible for any of their content.',
                         setup: setupCursorHoverInfo,
                     }),
                 ]
@@ -123,11 +123,11 @@ const WaifuImage = (taglist) => {
         transition: 'slide_up_down',
         transitionDuration: userOptions.animations.durationSmall,
         children: {
-            'api': ImageState('api', getString('Calling API')),
-            'download': ImageState('downloading', getString('Downloading image')),
-            'done': ImageState('done', getString('Finished!')),
-            'error': ImageState('error', getString('Error')),
-            'notfound': ImageState('error', getString('Not found!')),
+            'api': ImageState('api', 'Calling API'),
+            'download': ImageState('downloading', 'Downloading image'),
+            'done': ImageState('done', 'Finished!'),
+            'error': ImageState('error', 'Error'),
+            'notfound': ImageState('error', 'Not found!'),
         },
     });
     const downloadIndicator = MarginRevealer({
@@ -156,12 +156,12 @@ const WaifuImage = (taglist) => {
                     children: [
                         Box({ hexpand: true }),
                         ImageAction({
-                            name: getString('Go to source'),
+                            name: 'Go to source',
                             icon: 'link',
                             action: () => execAsync(['xdg-open', `${thisBlock.attribute.imageData.source}`]).catch(print),
                         }),
                         ImageAction({
-                            name: getString('Hoard'),
+                            name: 'Hoard',
                             icon: 'save',
                             action: (self) => {
                                 execAsync(['bash', '-c', `mkdir -p $(xdg-user-dir PICTURES)/homework${thisBlock.attribute.isNsfw ? '/🌶️' : ''} && cp ${thisBlock.attribute.imagePath} $(xdg-user-dir PICTURES)/homework${thisBlock.attribute.isNsfw ? '/🌶️/' : ''}`])
@@ -170,7 +170,7 @@ const WaifuImage = (taglist) => {
                             },
                         }),
                         ImageAction({
-                            name: getString('Open externally'),
+                            name: 'Open externally',
                             icon: 'open_in_new',
                             action: () => execAsync([IMAGE_VIEWER_APP, `${thisBlock.attribute.imagePath}`]).catch(print),
                         }),
@@ -186,16 +186,13 @@ const WaifuImage = (taglist) => {
         transition: 'slide_down',
         transitionDuration: userOptions.animations.durationLarge,
         revealChild: false,
-        child: Box({
-            className: 'margin-top-5',
-            children: [Overlay({
-                child: Box({
-                    homogeneous: true,
-                    className: 'sidebar-waifu-image',
-                    children: [blockImage],
-                }),
-                overlays: [blockImageActions],
-            })]
+        child: Overlay({
+            child: Box({
+                homogeneous: true,
+                className: 'sidebar-waifu-image margin-top-5',
+                children: [blockImage],
+            }),
+            overlays: [blockImageActions],
         }),
     });
     const thisBlock = Box({
@@ -368,7 +365,7 @@ export const waifuCommands = Box({
         self.pack_start(Button({
             className: 'sidebar-chat-chip-toggle',
             setup: setupCursorHover,
-            label: getString('Tags →'),
+            label: 'Tags →',
             onClicked: () => {
                 waifuTags.revealChild = !waifuTags.revealChild;
             }

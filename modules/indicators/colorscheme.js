@@ -78,22 +78,22 @@ function calculateSchemeInitIndex(optionsArr, searchValue = 'vibrant') {
 
 const schemeOptionsArr = [
     [
-        { name: getString('Tonal Spot'), value: 'tonalspot' },
-        { name: getString('Fruit Salad'), value: 'fruitsalad' },
-        { name: getString('Fidelity'), value: 'fidelity' },
-        { name: getString('Rainbow'), value: 'rainbow' },
+        { name: 'Tonal Spot', value: 'tonalspot' },
+        { name: 'Fruit Salad', value: 'fruitsalad' },
+        { name: 'Fidelity', value: 'fidelity' },
+        { name: 'Rainbow', value: 'rainbow' },
     ],
     [
-        { name: getString('Neutral'), value: 'neutral' },
-        { name: getString('Monochrome'), value: 'monochrome' },
-        { name: getString('Expressive'), value: 'expressive' },
-        { name: getString('Vibrant'), value: 'vibrant' },
+        { name: 'Neutral', value: 'neutral' },
+        { name: 'Monochrome', value: 'monochrome' },
+        { name: 'Expressive', value: 'expressive' },
+        { name: 'Vibrant', value: 'vibrant' },
     ],
     [
-        { name: getString('Vibrant+'), value: 'morevibrant' },
+        { name: 'Vibrant+', value: 'morevibrant' },
     ],
     //[
-    //  { name: getString('Content'), value: 'content' },
+    //  { name: 'Content', value: 'content' },
     //]
 ];
 
@@ -104,7 +104,7 @@ const initScheme = Utils.exec(`bash -c "sed -n \'3p\' ${LIGHTDARK_FILE_LOCATION}
 const initSchemeIndex = calculateSchemeInitIndex(schemeOptionsArr, initScheme);
 
 const ColorSchemeSettings = () => Widget.Box({
-    className: 'osd-colorscheme-settings spacing-v-5 margin-20',
+    className: 'osd-colorscheme-settings spacing-v-5',
     vertical: true,
     vpack: 'center',
     children: [
@@ -114,14 +114,14 @@ const ColorSchemeSettings = () => Widget.Box({
                 Widget.Label({
                     xalign: 0,
                     className: 'txt-norm titlefont txt',
-                    label: getString('Options'),
+                    label: 'Options',
                     hpack: 'center',
                 }),
                 //////////////////
                 ConfigToggle({
                     icon: 'dark_mode',
-                    name: getString('Dark Mode'),
-                    desc: getString('Ya should go to sleep!'),
+                    name: 'Dark Mode',
+                    desc: 'Ya should go to sleep!',
                     initValue: darkMode.value,
                     onChange: (_, newValue) => {
                         darkMode.value = !!newValue;
@@ -132,8 +132,8 @@ const ColorSchemeSettings = () => Widget.Box({
                 }),
                 ConfigToggle({
                     icon: 'border_clear',
-                    name: getString('Transparency'),
-                    desc: getString('Make shell elements transparent'),
+                    name: 'Transparency',
+                    desc: 'Make shell elements transparent',
                     initValue: initTransparencyVal,
                     onChange: (self, newValue) => {
                         let transparency = newValue == 0 ? "opaque" : "transparent";
@@ -141,34 +141,6 @@ const ColorSchemeSettings = () => Widget.Box({
                             .then(execAsync(['bash', '-c', `${App.configDir}/scripts/color_generation/switchcolor.sh`]))
                             .catch(print);
                     },
-                }),
-                Widget.Box({
-                    tooltipText: getString('Theme GTK apps using accent color\n(drawback: dark/light mode switching requires restart)'),
-                    className: 'txt spacing-h-5 configtoggle-box',
-                    children: [
-                        MaterialIcon('imagesearch_roller', 'norm'),
-                        Widget.Label({
-                            className: 'txt txt-small',
-                            label: getString('Use Gradience'),
-                        }),
-                        Widget.Box({ hexpand: true }),
-                        ConfigMulipleSelection({
-                            hpack: 'center',
-                            vpack: 'center',
-                            optionsArr: [
-                                [{ name: 'Off', value: 0 }, { name: 'On', value: 1 }],
-                            ],
-                            initIndex: [-1, -1],
-                            onChange: (value, name) => {
-                                const ADWAITA_BLUE = "#3584E4";
-                                if (value) execAsync([`bash`, `-c`, `${App.configDir}/scripts/color_generation/switchcolor.sh - --yes-gradience`, `&`])
-                                    .catch(print);
-                                else execAsync([`bash`, `-c`, `${App.configDir}/scripts/color_generation/switchcolor.sh "${ADWAITA_BLUE}" --no-gradience`, `&`])
-                                    .catch(print);
-
-                            },
-                        }),
-                    ]
                 }),
             ]
         }),
@@ -179,7 +151,7 @@ const ColorSchemeSettings = () => Widget.Box({
                 Widget.Label({
                     xalign: 0,
                     className: 'txt-norm titlefont txt margin-top-5',
-                    label: getString('Scheme styles'),
+                    label: 'Scheme styles',
                     hpack: 'center',
                 }),
                 //////////////////
@@ -207,7 +179,7 @@ const ColorschemeContent = () => Widget.Box({
         Widget.Label({
             xalign: 0,
             className: 'txt-norm titlefont txt',
-            label: getString('Color scheme'),
+            label: 'Color scheme',
             hpack: 'center',
         }),
         Widget.Box({

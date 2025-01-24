@@ -8,6 +8,7 @@ import Music from "./normal/music.js";
 import System from "./normal/system.js";
 import { enableClickthrough } from "../.widgetutils/clickthrough.js";
 import { RoundedCorner } from "../.commonwidgets/cairo_roundedcorner.js";
+import { MaterialIcon } from "../.commonwidgets/materialicon.js";
 import { currentShellMode } from '../../variables.js';
 
 const NormalOptionalWorkspaces = async () => {
@@ -36,7 +37,7 @@ const FocusOptionalWorkspaces = async () => {
 
 export const Bar = async (monitor = 0) => {
     const SideModule = (children) => Widget.Box({
-        className: 'bar-sidemodule',
+        className: 'bar-sidemodule spacing-h-4',
         children: children,
     });
     const normalBarContent = Widget.CenterBox({
@@ -46,19 +47,42 @@ export const Bar = async (monitor = 0) => {
             const minHeight = styleContext.get_property('min-height', Gtk.StateFlags.NORMAL);
             // execAsync(['bash', '-c', `hyprctl keyword monitor ,addreserved,${minHeight},0,0,0`]).catch(print);
         },
-        startWidget: (await WindowTitle(monitor)),
+        // startWidget: (await WindowTitle(monitor)),
+        startWidget:
+            SideModule([
+                Widget.Box({
+                    homogeneous: false,
+                    className: "bar-group-margin",
+                    children: [
+                        Widget.Button({
+                            className: "bar-group bar-group-standalone bar-group-pad-system bar-session-button",
+                            tooltipText: "Session",
+                            onClicked: () => {
+                                closeEverything();
+                                Utils.timeout(1, () => openWindowOnAllMonitors("session"));
+                            },
+                            child: MaterialIcon("power_settings_new", "norm"),
+                        }),
+                    ],
+                }),
+                await NormalOptionalWorkspaces(),
+                await WindowTitle(monitor)
+            ]),
         centerWidget: Widget.Box({
             className: 'spacing-h-4',
             children: [
-                SideModule([Music()]),
-                Widget.Box({
-                    homogeneous: true,
-                    children: [await NormalOptionalWorkspaces()],
-                }),
-                SideModule([System()]),
+                // Widget.Box({
+                //     homogeneous: true,
+                //     children: [await NormalOptionalWorkspaces()],
+                // }),
+                // SideModule([Music()]),
+
+                SideModule([Music(), Widget.Box({
+                    className: 'spacing-h-4',
+                }), System()]),
             ]
         }),
-        endWidget: Indicators(monitor),
+        endWidget: Indicators(),
     });
     const focusedBarContent = Widget.CenterBox({
         className: 'bar-bg-focus',
@@ -101,7 +125,8 @@ export const Bar = async (monitor = 0) => {
                 'nothing': nothingContent,
             },
             setup: (self) => self.hook(currentShellMode, (self) => {
-                self.shown = currentShellMode.value[monitor];
+                self.shown = currentShellMode.value;
+
             })
         }),
     });

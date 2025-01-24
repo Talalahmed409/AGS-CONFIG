@@ -15,13 +15,17 @@ import Cheatsheet from './modules/cheatsheet/main.js';
 import Dock from './modules/dock/main.js';
 import Corner from './modules/screencorners/main.js';
 import Crosshair from './modules/crosshair/main.js';
-import Indicator from './modules/indicators/main.js';
-import Osk from './modules/onscreenkeyboard/main.js';
+import Indicator, { PopupNotifications } from './modules/indicators/main.js';
+import KeyVis from './modules/indicators/keyVis.js';
+// import Osk from './modules/onscreenkeyboard/main.js';
 import Overview from './modules/overview/main.js';
 import Session from './modules/session/main.js';
 import SideLeft from './modules/sideleft/main.js';
 import SideRight from './modules/sideright/main.js';
 import { COMPILED_STYLE_DIR } from './init.js';
+
+
+// NOTE: This is disabled, only the top monitor is used.
 
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
 function forMonitors(widget) {
@@ -33,6 +37,18 @@ function forMonitorsAsync(widget) {
     return range(n, 0).forEach((n) => widget(n).catch(print))
 }
 
+function forTopMonitor(widget) {
+    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    return n > 0 ? [widget(1)] : [];
+}
+
+function forTopMonitorAsync(widget) {
+    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    if (n > 0) {
+        widget(1).catch(print);
+    }
+}
+
 // Start stuff
 handleStyles(true);
 startAutoDarkModeService().catch(print);
@@ -40,25 +56,28 @@ firstRunWelcome().catch(print);
 startBatteryWarningService().catch(print)
 
 const Windows = () => [
-    // forMonitors(DesktopBackground),
-    forMonitors(Crosshair),
+    // forTopMonitor(DesktopBackground),
+    forTopMonitor(Crosshair),
     Overview(),
-    forMonitors(Indicator),
-    forMonitors(Cheatsheet),
+    forTopMonitor(Indicator),
+    forTopMonitor(PopupNotifications),
+    forTopMonitor(KeyVis),
+    forTopMonitor(Cheatsheet),
     SideLeft(),
     SideRight(),
-    forMonitors(Osk),
+    // forTopMonitor(Osk),
+    // forTopMonitor(Session),
     forMonitors(Session),
-    ...(userOptions.dock.enabled ? [forMonitors(Dock)] : []),
+    ...(userOptions.dock.enabled ? [forTopMonitor(Dock)] : []),
     ...(userOptions.appearance.fakeScreenRounding !== 0 ? [
-        forMonitors((id) => Corner(id, 'top left', true)),
-        forMonitors((id) => Corner(id, 'top right', true)),
-        forMonitors((id) => Corner(id, 'bottom left', true)),
-        forMonitors((id) => Corner(id, 'bottom right', true)),
+        // forTopMonitor((id) => Corner(id, 'top left', true)),
+        // forTopMonitor((id) => Corner(id, 'top right', true)),
+        forTopMonitor((id) => Corner(id, 'bottom left', true)),
+        forTopMonitor((id) => Corner(id, 'bottom right', true)),
     ] : []),
     ...(userOptions.appearance.barRoundCorners ? [
-        forMonitors(BarCornerTopleft),
-        forMonitors(BarCornerTopright),
+        forTopMonitor(BarCornerTopleft),
+        forTopMonitor(BarCornerTopright),
     ] : []),
 ];
 
@@ -76,6 +95,5 @@ App.config({
 });
 
 // Stuff that don't need to be toggled. And they're async so ugh...
-forMonitorsAsync(Bar);
+forTopMonitorAsync(Bar);
 // Bar().catch(print); // Use this to debug the bar. Single monitor only.
-

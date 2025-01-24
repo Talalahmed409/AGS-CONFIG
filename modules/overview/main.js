@@ -24,5 +24,5 @@ export default (id = '') => PopupWindow({
             clickCloseRegion({ name: 'overview', multimonitor: false }),
         ]
     }),
-});
+})
 

@@ -7,17 +7,11 @@ $transparency: 0.75;
   $surface: transparentize($surface, $transparency);
   $surfaceDim: transparentize($surfaceDim, $transparency);
   $surfaceBright: transparentize($surfaceBright, $transparency);
-  $surfaceContainerLowest: transparentize(
-    $surfaceContainerLowest,
-    $transparency
-  );
+  $surfaceContainerLowest: transparentize($surfaceContainerLowest, $transparency);
   $surfaceContainerLow: transparentize($surfaceContainerLow, $transparency);
   $surfaceContainer: transparentize($surfaceContainer, $transparency);
   $surfaceContainerHigh: transparentize($surfaceContainerHigh, $transparency);
-  $surfaceContainerHighest: transparentize(
-    $surfaceContainerHighest,
-    $transparency
-  );
+  $surfaceContainerHighest: transparentize($surfaceContainerHighest, $transparency);
   $surfaceVariant: transparentize($surfaceVariant, $transparency);
   $inverseSurface: transparentize($inverseSurface, $transparency);
   $surfaceTint: transparentize($surfaceTint, $transparency);
@@ -81,24 +75,25 @@ $workspaceOnLayer2: $onSecondaryContainer;
 $trayOnLayer0: $onLayer0;
 $cheatsheetTitle: $onSecondaryContainer;
 $cheatsheetColors: (
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer,
-  $onSecondaryContainer
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer,
+    $onSecondaryContainer
 );
 
 $sessionColors: (
-  $onLayer1,
-  $onLayer1,
-  $onLayer1,
-  $onLayer1,
-  $onLayer1,
-  $onLayer1,
-  $onLayer1
+    $onLayer1,
+    $onLayer1,
+    $onLayer1,
+    $onLayer1,
+    $onLayer1,
+    $onLayer1,
+    $onLayer1
 );
 $brightnessOnLayer0: $onLayer0;
 $volumeOnLayer0: $onLayer0;
+

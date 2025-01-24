@@ -23,7 +23,7 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-bg-nothing {
-  background-color: $layer0;
+  background-color: transparent;
   min-height: 0.5px;
 }
 
@@ -97,13 +97,7 @@ $bar_ws_width_focus_active: 2.045rem;
   min-width: 18.341rem;
 }
 
-.bar-ws-container {
-  transition: 700ms cubic-bezier(0.1, 1, 0, 1);
-}
-
 .bar-ws {
-  font-size: 1.02rem;
-  font-weight: 600;
   min-width: $bar_ws_width;
   color: $workspaceOnLayer1Inactive;
 }
@@ -140,12 +134,17 @@ $bar_ws_width_focus_active: 2.045rem;
 
 .bar-time {
   @include titlefont;
-  font-size: 1.2727rem;
-  color: $timeOnLayer1;
+  font-size: 1.2rem;
+  // font-weight: 600;
+  // color: $layer0;
+  // background-color: $workspaceLayer3;
+  border-radius: 0.75rem;
 }
 
 .bar-date {
   color: $dateOnLayer1;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .bar-batt {
@@ -277,6 +276,7 @@ $bar_ws_width_focus_active: 2.045rem;
 
 .bar-music-txt {
   color: $musicOnLayer1;
+  padding: 0.2rem 0.682rem;
 }
 
 .bar-music-cover {
@@ -319,7 +319,7 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-wintitle-topdesc {
-  margin-top: -0.136rem;
+  margin-top: 0.2rem;
   margin-bottom: -0.341rem;
   color: $windowtitleOnLayer0Inactive;
 }
@@ -406,12 +406,28 @@ $bar_ws_width_focus_active: 2.045rem;
   padding: 0.205rem 0.341rem;
 }
 
-/* Add margin to the CPU info box */
-.cpu-info {
-  margin-right: 10px; /* Adjust the value as needed */
+.bar-session-button {
+  // @include full-rounding;
+  // @include symbolic-icon;
+  color: #97425a;
+  margin-left: 2rem;
 }
 
-// /* Add margin to the GPU info box */
-// .gpu-info {
-//   margin-left: 10px; /* Adjust the value as needed */
-// }
+.bar-session-button:hover {
+  background-color: #97425a;
+  color: $layer0;
+  transition: 200ms ease-in-out;
+}
+
+.focused-app {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.bar-active-app {
+  border-radius: 0.7rem;
+}
+
+.active-app-label {
+  margin-left: -0.9rem;
+  margin-top: 0.5rem;
+}

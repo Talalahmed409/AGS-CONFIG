@@ -8,7 +8,7 @@ import {
   EventBox,
   Overlay,
 } from "resource:///com/github/Aylur/ags/widget.js";
-import { ActiveApps } from "./active_apps.js";
+//import { ActiveApps } from "./active_apps.js";
 
 const WindowTitle = async () => {
   try {
@@ -74,22 +74,23 @@ export default async (monitor = 0, showtitle = true) => {
     onPrimaryClick: () => {
       App.toggleWindow("sideleft");
     },
+    // ,
 
-    child: Overlay({
-      overlays: [
-        Box({ hexpand: true }),
-        Box({
-          className: "bar-sidemodule",
-          hexpand: false,
-          children: showtitle
-            ? [
-                Widget.Box({ className: "bar-corner-spacing" }),
-                // optionalWindowTitleInstance,
-                ActiveApps(),
-              ]
-            : [],
-        }),
-      ],
-    }),
+    // child: Overlay({
+    //   overlays: [
+    //     Box({ hexpand: true }),
+    //     Box({
+    //       className: "bar-sidemodule",
+    //       hexpand: false,
+    //       children: showtitle
+    //         ? [
+    //             Widget.Box({ className: "bar-corner-spacing" }),
+    //             // optionalWindowTitleInstance,
+    //             ActiveApps(),
+    //           ]
+    //         : [],
+    //     }),
+    //   ],
+    // }),
   });
 };

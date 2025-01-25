@@ -57,7 +57,7 @@ const BarResource = (
   command,
   circprogClassName = "bar-batt-circprog",
   textClassName = "txt-onSurfaceVariant",
-  iconClassName = "bar-batt",
+  iconClassName = "bar-batt"
 ) => {
   const resourceCircProg = AnimatedCircProg({
     className: `${circprogClassName}`,
@@ -84,7 +84,7 @@ const BarResource = (
   const widget = Button({
     onClicked: () =>
       Utils.execAsync(["bash", "-c", `${userOptions.apps.taskManager}`]).catch(
-        print,
+        print
       ),
     child: Box({
       className: `spacing-h-4 ${textClassName}`,
@@ -97,7 +97,7 @@ const BarResource = (
               resourceLabel.label = `${Math.round(Number(output))}%`;
               widget.tooltipText = `${name}: ${Math.round(Number(output))}%`;
             })
-            .catch(print),
+            .catch(print)
         ),
     }),
   });
@@ -109,7 +109,10 @@ const TrackProgress = () => {
     const mpris = Mpris.getPlayer("");
     if (!mpris) return;
     // Set circular progress value
-    circprog.css = `font-size: ${Math.max((mpris.position / mpris.length) * 100, 0)}px;`;
+    circprog.css = `font-size: ${Math.max(
+      (mpris.position / mpris.length) * 100,
+      0
+    )}px;`;
   };
 
   const progressWidget = AnimatedCircProg({
@@ -140,7 +143,7 @@ const switchToRelativeWorkspace = async (self, num) => {
       await import("resource:///com/github/Aylur/ags/service/hyprland.js")
     ).default;
     Hyprland.messageAsync(
-      `dispatch workspace ${num > 0 ? "+" : ""}${num}`,
+      `dispatch workspace ${num > 0 ? "+" : ""}${num}`
     ).catch(print);
   } catch {
     execAsync([
@@ -169,7 +172,11 @@ export default () => {
               setup: (self) =>
                 self.hook(Mpris, (label) => {
                   const mpris = Mpris.getPlayer("");
-                  label.label = `${mpris !== null && mpris.playBackStatus == "Playing" ? "pause" : "play_arrow"}`;
+                  label.label = `${
+                    mpris !== null && mpris.playBackStatus == "Playing"
+                      ? "pause"
+                      : "play_arrow"
+                  }`;
                 }),
             }),
           ],
@@ -179,11 +186,11 @@ export default () => {
               if (!mpris) return;
               label.toggleClassName(
                 "bar-music-playstate-playing",
-                mpris !== null && mpris.playBackStatus == "Playing",
+                mpris !== null && mpris.playBackStatus == "Playing"
               );
               label.toggleClassName(
                 "bar-music-playstate",
-                mpris !== null || mpris.playBackStatus == "Paused",
+                mpris !== null || mpris.playBackStatus == "Paused"
               );
             }),
         }),
@@ -213,7 +220,9 @@ export default () => {
           });
 
           if (mpris && mpris.trackTitle) {
-            label.label = `${trimTrackTitle(mpris.trackTitle.substring(0, 20))} • ${mpris.trackArtists.join(", ")} `;
+            label.label = `${trimTrackTitle(
+              mpris.trackTitle.substring(0, 20)
+            )} • ${mpris.trackArtists.join(", ")} `;
           } else label.label = "No media";
         }),
     }),
@@ -260,7 +269,7 @@ export default () => {
             `free | awk '/^Swap/ {if ($2 > 0) printf("%.2f\\n", ($3/$2) * 100); else print "0";}'`,
             "bar-swap-circprog",
             "bar-swap-txt",
-            "bar-swap-icon",
+            "bar-swap-icon"
           ),
           BarResource(
             "CPU Usage",
@@ -268,8 +277,107 @@ export default () => {
             `top -bn1 | grep Cpu | sed 's/\\,/\\./g' | awk '{print $2}'`,
             "bar-cpu-circprog",
             "bar-cpu-txt",
-            "bar-cpu-icon",
+            "bar-cpu-icon"
           ),
+          // Add CPU and GPU info box here
+          Box({
+            className: "spacing-h-10 margin-left-4",
+            children: [
+              // CPU Info
+              Box({
+                className: "cpu-info",
+                children: [
+                  Label({
+                    label: "CPUTEMP", // Initial label value
+                    tooltipText: "", // Tooltip starts empty
+                    setup: (self) => {
+                      self.poll(5000, async (self) => {
+                        try {
+                          const output = await execAsync([
+                            "bash",
+                            "-c",
+                            "/home/talal/.local/share/bin/cpuinfo.sh",
+                          ]);
+                          const data = JSON.parse(output);
+
+                          // Update label with CPU temperature
+                          self.label = data.text || "N/A";
+
+                          // Update tooltip with CPU name, utilization, and clock speed
+                          if (data.tooltip) {
+                            const tooltipLines = data.tooltip.split("\n");
+                            const cpuName = tooltipLines[0];
+                            const temperature = tooltipLines.find((line) =>
+                              line.includes("Temperature")
+                            );
+                            const utilization = tooltipLines.find((line) =>
+                              line.includes("Utilization")
+                            );
+                            const clockSpeed = tooltipLines.find((line) =>
+                              line.includes("Clock Speed")
+                            );
+
+                            self.tooltipText = `${cpuName}\n${temperature}\n${utilization}\n${clockSpeed}`;
+                          } else {
+                            self.tooltipText = "No tooltip data available";
+                          }
+                        } catch (err) {
+                          print(`Error fetching CPU info: ${err}`);
+                          self.label = "Error";
+                          self.tooltipText = "Error fetching data";
+                        }
+                      });
+                    },
+                  }),
+                ],
+              }),
+              // GPU Info
+              Box({
+                className: "gpu-info",
+                children: [
+                  Label({
+                    label: "GPUTEMP", // Initial label value
+                    tooltipText: "", // Tooltip starts empty
+                    setup: (self) => {
+                      self.poll(5000, async (self) => {
+                        try {
+                          const output = await execAsync([
+                            "bash",
+                            "-c",
+                            "/home/talal/.local/share/bin/gpuinfo.sh",
+                          ]);
+                          const data = JSON.parse(output);
+
+                          // Update label with GPU temperature
+                          self.label = data.text || "N/A";
+
+                          // Update tooltip with GPU name, utilization, and power usage
+                          if (data.tooltip) {
+                            const tooltipLines = data.tooltip.split("\n");
+                            const gpuName = tooltipLines[0];
+                            const utilization = tooltipLines.find((line) =>
+                              line.includes("Utilization")
+                            );
+                            const powerUsage = tooltipLines.find((line) =>
+                              line.includes("Power Usage")
+                            );
+
+                            self.tooltipText = `${gpuName}\n${utilization}\n${powerUsage}`;
+                          } else {
+                            self.tooltipText = "No tooltip data available";
+                          }
+                        } catch (err) {
+                          print(`Error fetching GPU info: ${err}`);
+                          self.label = "Error";
+                          self.tooltipText = "Error fetching data";
+                        }
+                      });
+                    },
+                  }),
+                ],
+              }),
+            ],
+          }),
         ],
       }),
     });
@@ -282,11 +390,12 @@ export default () => {
           `free | awk '/^Mem/ {printf("%.2f\\n", ($3/$2) * 100)}'`,
           "bar-ram-circprog",
           "bar-ram-txt",
-          "bar-ram-icon",
+          "bar-ram-icon"
         ),
         SysRevealer,
       ],
     });
+
     if (GLib.file_test(CUSTOM_MODULE_CONTENT_SCRIPT, GLib.FileTest.EXISTS)) {
       const interval =
         Number(Utils.readFile(CUSTOM_MODULE_CONTENT_INTERVAL_FILE)) || 5000;
@@ -331,6 +440,7 @@ export default () => {
         }),
       });
   };
+
   return EventBox({
     onScrollUp: () => adjustVolume("up"),
     onScrollDown: () => adjustVolume("down"),

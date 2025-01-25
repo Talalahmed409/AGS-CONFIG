@@ -61,8 +61,10 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-group-standalone {
-  @include bar-group-rounding;
+  border-radius: 35px;
+  // @include bar-group-rounding;
   -gtk-outline-radius: 1.364rem;
+  // padding: 3px;
 }
 
 .bar-group-round {
@@ -409,25 +411,20 @@ $bar_ws_width_focus_active: 2.045rem;
 .bar-session-button {
   // @include full-rounding;
   // @include symbolic-icon;
-  color: #97425a;
+  color: #ff0000;
   margin-left: 2rem;
 }
 
 .bar-session-button:hover {
-  background-color: #97425a;
+  background-color: #ce0000;
   color: $layer0;
-  transition: 200ms ease-in-out;
+  transition: 300ms ease-in-out;
 }
 
-.focused-app {
-  background-color: rgba(255, 255, 255, 0.15);
+.cpu-info {
+  color: #c0c6d5; /* Light gray background for CPU info */
 }
 
-.bar-active-app {
-  border-radius: 0.7rem;
-}
-
-.active-app-label {
-  margin-left: -0.9rem;
-  margin-top: 0.5rem;
+.gpu-info {
+  color: #c0c6d5; /* Light pink background for GPU info */
 }

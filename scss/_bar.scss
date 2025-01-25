@@ -95,6 +95,10 @@ $bar_ws_width_focus_active: 2.045rem;
   min-width: 26rem;
 }
 
+.bar-ws-container {
+  transition: 700ms cubic-bezier(0.1, 1, 0, 1);
+}
+
 .bar-ws-width {
   min-width: 18.341rem;
 }

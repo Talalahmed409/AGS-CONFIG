@@ -1,60 +1,95 @@
-AGS Configurations
+# AGS Configurations
 
-Personal AGS Configurations
+## Personal AGS Configurations
 
-This repository contains my customized configurations for AGS, a dynamic layout system for Hyprland. These configurations are a refined and more functional adaptation of end-4's Hyprland dots.
-🔑 Key Features
+This repository contains my customized configurations for AGS, a dynamic layout system for Hyprland. These configurations are a refined and more functional adaptation of [end-4's Hyprland dots](https://github.com/end-4/Hyprland-dots).
 
-    Minimalist Design: A clean and streamlined setup for a distraction-free workflow.
-    Enhanced Functionality: Adds custom modules and configurations tailored for improved usability.
-    Seamless Integration: Works best with my personal dotfiles.
+---
 
-📸 Preview
+## 🔑 Key Features
 
-Preview Image
-📂 Directory Structure
+- **Minimalist Design**: A clean and streamlined setup for a distraction-free workflow.
+- **Enhanced Functionality**: Adds custom modules and configurations tailored for improved usability.
 
+---
+
+## 📸 Preview
+
+![Preview Image](preview.gif)
+
+---
+
+## 📂 Directory Structure
+
+```
 AGS-CONFIG/  
 ├── ags/                 # Core AGS configurations  
 ├── scripts/             # Custom scripts for enhanced functionality  
 ├── themes/              # Minimalist themes for AGS  
 ├── modules/             # Additional AGS modules  
 └── preview.png          # Preview of the setup  
+```
 
-🚀 Getting Started
-Prerequisites
+---
 
-    Hyprland
-    AGS
-    A compositor supporting Wayland
+## 🚀 Getting Started
 
-Installation
+### Prerequisites
 
-    Clone the repository:
+To use these configurations, ensure you have the following installed:
 
-git clone https://github.com/Talalahmed409/AGS-CONFIG.git  
-cd AGS-CONFIG  
+- [Hyprland](https://github.com/hyprwm/Hyprland)
+- [AGS](https://github.com/Alexays/AGs)
+- A compositor supporting Wayland
 
-Symlink the configuration files to the appropriate directory:
+---
 
-    ln -s $(pwd)/ags ~/.config/ags  
+### Installation
 
-    Restart Hyprland for changes to take effect.
+1. Clone the repository:
 
-📌 Customization
+   ```bash
+   git clone https://github.com/Talalahmed409/AGS-CONFIG.git
+   cd AGS-CONFIG
+   ```
 
-    Modify the ags folder to suit your preferences.
-    Add or edit modules in the modules directory for additional functionality.
-    Tweak themes in the themes directory to achieve your desired look.
+2. Symlink the configuration files to the appropriate directory:
 
-📖 Resources
+   ```bash
+   ln -s $(pwd)/ags ~/.config/ags
+   ```
 
-    AGS Documentation
-    Hyprland Wiki
+3. Restart Hyprland for changes to take effect:
 
-🛠 Contributing
+   ```bash
+   hyprctl reload
+   ```
+
+---
+
+## 📌 Customization
+
+1. **Modify AGS configurations**:
+   - Edit files in the `ags/` folder to suit your preferences.
+
+2. **Add or edit modules**:
+   - Customize or create new modules in the `modules/` directory for additional functionality.
+
+---
+
+## 📖 Resources
+
+For more information, check out these resources:
+
+- [AGS Documentation](https://github.com/Alexays/AGs/wiki)
+- [Hyprland Wiki](https://wiki.hyprland.org/)
+
+---
+
+## 🛠 Contributing
 
 This is a personal project, but suggestions and pull requests are welcome. Feel free to fork the repository and contribute!
-📜 License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+---
+
+Happy customizing!

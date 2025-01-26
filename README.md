@@ -2,32 +2,32 @@
 
 ## Personal AGS Configurations
 
-This repository contains my customized configurations for AGS, a dynamic layout system for Hyprland. These configurations are a refined and more functional adaptation of [end-4's Hyprland dots](https://github.com/end-4/Hyprland-dots).
+This repository contains my customized configurations for AGS, a dynamic layout system for Hyprland. These configurations are a refined and more functional adaptation of [end-4's Hyprland dots](https://github.com/end-4/Hyprland-dots) and [d7omdev ags](https://github.com/d7omdev/ags).
 
 ---
 
 ## 🔑 Key Features
 
-- **Minimalist Design**: A clean and streamlined setup for a distraction-free workflow.
+- **Minimalist Design**: A clean and space efficient setup for a distraction-free workflow.
 - **Enhanced Functionality**: Adds custom modules and configurations tailored for improved usability.
 
 ---
 
 ## 📸 Preview
 
-![Preview Image](preview.gif)
+![Preview](preview.gif)
 
 ---
 
 ## 📂 Directory Structure
 
 ```
-AGS-CONFIG/  
-├── ags/                 # Core AGS configurations  
-├── scripts/             # Custom scripts for enhanced functionality  
-├── themes/              # Minimalist themes for AGS  
-├── modules/             # Additional AGS modules  
-└── preview.png          # Preview of the setup  
+AGS-CONFIG/
+├── ags/                 # Core AGS configurations
+├── scripts/             # Custom scripts for enhanced functionality
+├── themes/              # Minimalist themes for AGS
+├── modules/             # Additional AGS modules
+└── preview.gif          # Preview of the setup
 ```
 
 ---
@@ -70,6 +70,7 @@ To use these configurations, ensure you have the following installed:
 ## 📌 Customization
 
 1. **Modify AGS configurations**:
+
    - Edit files in the `ags/` folder to suit your preferences.
 
 2. **Add or edit modules**:

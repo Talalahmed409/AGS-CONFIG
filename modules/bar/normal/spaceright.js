@@ -68,7 +68,7 @@ export default () => {
   const indicatorArea = SpaceRightDefaultClicks(
     Widget.Box({
       children: [SeparatorDot(), barStatusIcons],
-    }),
+    })
   );
   const actualContent = Widget.Box({
     hexpand: true,
@@ -93,7 +93,7 @@ export default () => {
       children: [
         actualContent,
         SpaceRightDefaultClicks(
-          Widget.Box({ className: "bar-corner-spacing" }),
+          Widget.Box({ className: "bar-corner-spacing" })
         ),
       ],
     }),
